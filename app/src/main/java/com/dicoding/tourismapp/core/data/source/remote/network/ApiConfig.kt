@@ -3,6 +3,7 @@ package com.dicoding.tourismapp.core.data.source.remote.network
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -16,10 +17,12 @@ object ApiConfig {
             .build()
     }
 
+    // Add call adapter factory for RXJava2
     fun provideApiService(): ApiService {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://dicoding-tourism-api.appspot.com/")
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(provideOkHttpClient())
             .build()
 
