@@ -27,6 +27,7 @@ class ViewModelFactory private constructor(private val iTourismUseCase: ITourism
                 }
     }
 
+    // Mengubah data yang di-return menjadi TourismInteractor
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         when {
