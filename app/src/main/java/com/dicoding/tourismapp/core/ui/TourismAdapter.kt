@@ -7,15 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
+import com.dicoding.tourismapp.core.domain.model.Tourism
 import kotlinx.android.synthetic.main.item_list_tourism.view.*
 import java.util.ArrayList
 
 class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
 
-    private var listData = ArrayList<TourismEntity>()
-    var onItemClick: ((TourismEntity) -> Unit)? = null
+    // Mengubah tipe data TourismAdapter dari TourismEntity menjadi Tourism
+    private var listData = ArrayList<Tourism>()
+    var onItemClick: ((Tourism) -> Unit)? = null
 
-    fun setData(newListData: List<TourismEntity>?) {
+    fun setData(newListData: List<Tourism>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -32,12 +34,14 @@ class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
         holder.bind(data)
     }
 
+    // Mengubah tipe data TourismAdapter dari TourismEntity menjadi Tourism
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: TourismEntity) {
+        fun bind(data: Tourism) {
             with(itemView) {
                 Glide.with(itemView.context)
                     .load(data.image)
                     .into(iv_item_image)
+
                 tv_item_title.text = data.name
                 tv_item_subtitle.text = data.address
             }

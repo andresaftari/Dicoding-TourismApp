@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
+import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
@@ -19,6 +20,7 @@ class DetailTourismActivity : AppCompatActivity() {
         const val EXTRA_DATA = "extra_data"
     }
 
+    // Mengubah tipe data DetailTourismActivity dari TourismEntity menjadi Tourism
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tourism)
@@ -27,11 +29,11 @@ class DetailTourismActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
-        val detailTourism = intent.getParcelableExtra<TourismEntity>(EXTRA_DATA)
+        val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)
     }
 
-    private fun showDetailTourism(detailTourism: TourismEntity?) {
+    private fun showDetailTourism(detailTourism: Tourism?) {
         detailTourism?.let {
             supportActionBar?.title = detailTourism.name
             tv_detail_description.text = detailTourism.description
@@ -41,6 +43,7 @@ class DetailTourismActivity : AppCompatActivity() {
 
             var statusFavorite = detailTourism.isFavorite
             setStatusFavorite(statusFavorite)
+
             fab.setOnClickListener {
                 statusFavorite = !statusFavorite
                 detailTourismViewModel.setFavoriteTourism(detailTourism, statusFavorite)
