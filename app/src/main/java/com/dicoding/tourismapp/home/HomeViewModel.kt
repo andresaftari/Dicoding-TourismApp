@@ -1,11 +1,9 @@
 package com.dicoding.tourismapp.home
 
 import androidx.lifecycle.ViewModel
-import com.dicoding.tourismapp.core.data.TourismRepository
+import com.dicoding.tourismapp.core.domain.usecase.ITourismUseCase
 
-class HomeViewModel(tourismRepository: TourismRepository) : ViewModel() {
-
-    val tourism = tourismRepository.getAllTourism()
-
+// Mengubah constructor HomeViewModel dari TourismRepository menjadi ITourismUseCase
+class HomeViewModel(iTourismUseCase: ITourismUseCase) : ViewModel() {
+    val tourism = iTourismUseCase.getAllTourism()
 }
-

@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.tourismapp.core.data.TourismRepository
 import com.dicoding.tourismapp.core.di.Injection
+import com.dicoding.tourismapp.core.domain.usecase.ITourismUseCase
+import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
 import com.dicoding.tourismapp.detail.DetailTourismViewModel
 import com.dicoding.tourismapp.favorite.FavoriteViewModel
 import com.dicoding.tourismapp.home.HomeViewModel
 
-class ViewModelFactory private constructor(private val tourismRepository: TourismRepository) :
+// Mengubah data yang di-return menjadi TourismInteractor
+class ViewModelFactory private constructor(private val iTourismUseCase: ITourismUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -19,26 +22,22 @@ class ViewModelFactory private constructor(private val tourismRepository: Touris
         fun getInstance(context: Context): ViewModelFactory =
             instance
                 ?: synchronized(this) {
-                instance
-                    ?: ViewModelFactory(
-                        Injection.provideRepository(
-                            context
-                        )
-                    )
-            }
+                    instance
+                        ?: ViewModelFactory(Injection.provideTourismUseCase(context))
+                }
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(tourismRepository) as T
+                HomeViewModel(iTourismUseCase) as T
             }
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
-                FavoriteViewModel(tourismRepository) as T
+                FavoriteViewModel(iTourismUseCase) as T
             }
             modelClass.isAssignableFrom(DetailTourismViewModel::class.java) -> {
-                DetailTourismViewModel(tourismRepository) as T
+                DetailTourismViewModel(iTourismUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

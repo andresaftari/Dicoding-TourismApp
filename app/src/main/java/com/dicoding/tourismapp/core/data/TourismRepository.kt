@@ -7,14 +7,16 @@ import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.domain.model.Tourism
+import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.utils.DataMapper
 
+// Implementasikan interface ITourismRepository
 class TourismRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) {
+) : ITourismRepository {
     companion object {
         @Volatile
         private var instance: TourismRepository? = null
@@ -29,8 +31,8 @@ class TourismRepository private constructor(
             }
     }
 
-    // Mengubah tipe data TourismRepository dari TourismEntity menjadi Tourism
-    fun getAllTourism(): LiveData<Resource<List<Tourism>>> =
+    // Implementasikan interface ITourismRepository
+    override fun getAllTourism(): LiveData<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<Tourism>> =
                 Transformations.map(localDataSource.getAllTourism()) {
@@ -49,14 +51,14 @@ class TourismRepository private constructor(
             }
         }.asLiveData()
 
-    // Mengubah tipe data TourismRepository dari TourismEntity menjadi Tourism
-    fun getFavoriteTourism(): LiveData<List<Tourism>> =
+    // Implementasikan interface ITourismRepository
+    override fun getFavoriteTourism(): LiveData<List<Tourism>> =
         Transformations.map(localDataSource.getFavoriteTourism()) {
             DataMapper.mapEntitiesToDomain(it)
         }
 
-    // Mengubah tipe data TourismRepository dari TourismEntity menjadi Tourism
-    fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
+    // Implementasikan interface ITourismRepository
+    override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
         val tourismEntity = DataMapper.mapDomainToEntities(tourism)
         appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state) }
     }

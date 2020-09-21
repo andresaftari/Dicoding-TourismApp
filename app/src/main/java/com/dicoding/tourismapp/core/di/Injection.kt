@@ -7,9 +7,12 @@ import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
 
 import com.dicoding.tourismapp.core.data.TourismRepository
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
+import com.dicoding.tourismapp.core.domain.usecase.ITourismUseCase
+import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.utils.JsonHelper
 
+// Mengubah data yang di-return menjadi TourismInteractor
 object Injection {
     fun provideRepository(context: Context): TourismRepository {
         val database = TourismDatabase.getInstance(context)
@@ -19,5 +22,10 @@ object Injection {
         val appExecutors = AppExecutors()
 
         return TourismRepository.getInstance(remoteDataSource, localDataSource, appExecutors)
+    }
+
+    fun provideTourismUseCase(context: Context): ITourismUseCase {
+        val repository = provideRepository(context)
+        return TourismInteractor(repository)
     }
 }
