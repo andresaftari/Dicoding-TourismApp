@@ -7,8 +7,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Tourism(
    val tourismId: String,
-   val name: String,
    val description: String,
+   val name: String,
    val address: String,
    val latitude: Double,
    val longitude: Double,

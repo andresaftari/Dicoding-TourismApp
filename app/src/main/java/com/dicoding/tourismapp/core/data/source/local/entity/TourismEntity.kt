@@ -15,11 +15,11 @@ data class TourismEntity(
     @ColumnInfo(name = "tourismId")
     var tourismId: String,
 
-    @ColumnInfo(name = "name")
-    var name: String,
-
     @ColumnInfo(name = "description")
     var description: String,
+
+    @ColumnInfo(name = "name")
+    var name: String,
 
     @ColumnInfo(name = "address")
     var address: String,
