@@ -6,5 +6,5 @@ Dicoding example project using clean architecture programming principle
 └─1.1. clean-architecture-final\
 2. Retrofit2\
 ├─2.0. update-with-retrofit\
-└─
+└─2.1. retrofit-logging-interceptor\
 
