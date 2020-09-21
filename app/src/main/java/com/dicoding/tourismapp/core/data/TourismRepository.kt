@@ -63,4 +63,3 @@ class TourismRepository private constructor(
         appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state) }
     }
 }
-

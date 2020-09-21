@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.item_list_tourism.view.*
 import java.util.ArrayList
 
 class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
-
     // Mengubah tipe data TourismAdapter dari TourismEntity menjadi Tourism
     private var listData = ArrayList<Tourism>()
     var onItemClick: ((Tourism) -> Unit)? = null

@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.fragment_home.rv_tourism
 
 class FavoriteFragment : Fragment() {
-
     private lateinit var favoriteViewModel: FavoriteViewModel
 
     override fun onCreateView(
@@ -31,7 +30,6 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailTourismActivity::class.java)

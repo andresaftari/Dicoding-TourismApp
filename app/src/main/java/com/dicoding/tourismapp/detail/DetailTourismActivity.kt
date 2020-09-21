@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
 
 class DetailTourismActivity : AppCompatActivity() {
-
     private lateinit var detailTourismViewModel: DetailTourismViewModel
 
     companion object {

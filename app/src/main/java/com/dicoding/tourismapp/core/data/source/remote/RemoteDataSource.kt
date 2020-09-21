@@ -52,4 +52,3 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         return resultData.toFlowable(BackpressureStrategy.BUFFER)
     }
 }
-
