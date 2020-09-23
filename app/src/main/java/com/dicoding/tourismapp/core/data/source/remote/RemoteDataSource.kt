@@ -4,11 +4,10 @@ import android.util.Log
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiService
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 // Mengubah constructor yang sebelumnya JSONHelper menjadi ApiService
 class RemoteDataSource private constructor(private val apiService: ApiService) {
@@ -24,31 +23,21 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             }
     }
 
-    // Menggunakan fungsi toFlowable
-    fun getAllTourism(): Flowable<ApiResponse<List<TourismResponse>>> {
-        // Menggunakan PublishSubject untuk menampung data di dalam ApiResponse
-        val resultData = PublishSubject.create<ApiResponse<List<TourismResponse>>>()
+    // Menggunakan Flow interface seperti Flowable pada RXJava2
+    suspend fun getAllTourism(): Flow<ApiResponse<List<TourismResponse>>> {
 
         // Get data from remote API
-        val client = apiService.getList()
-
-        client.apply {
-            subscribeOn(Schedulers.computation())
-            observeOn(AndroidSchedulers.mainThread())
-            // Menggunakan operator take(1) untuk mengambil data dari API sekali saja
-            take(1)
-            subscribe({ response ->
+        return flow {
+            try {
+                val response = apiService.getList()
                 val dataArray = response.places
-                // Meng-emit setiap response menggunakan fungsi onNext
-                resultData.onNext(if (dataArray.isNotEmpty()) ApiResponse.Success(dataArray) else ApiResponse.Empty)
-            }, { error ->
-                // Meng-emit setiap response menggunakan fungsi onNext
-                resultData.onNext(ApiResponse.Error(error.message.toString()))
-                Log.i(TAG, error.message.toString())
-            })
-        }
-        // Menggunakan fungsi toFlowable untuk mengubah Subject menjadi Flowable
-        // Menggunakan Backpressure strategy Buffer untuk mengambil tiap data walaupun ter-delay
-        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+
+                if (dataArray.isNotEmpty()) emit(ApiResponse.Success(response.places))
+                else emit(ApiResponse.Empty)
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.i(TAG, "${e.message} --- ${e.printStackTrace()}")
+            }
+        }.flowOn(Dispatchers.IO)
     }
 }

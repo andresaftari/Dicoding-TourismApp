@@ -2,21 +2,19 @@ package com.dicoding.tourismapp.core.data.source.local.room
 
 import androidx.room.*
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
 
 @Dao
-// Mengubah LiveData ke Flowable
+// Mengubah LiveData ke Flow
 interface TourismDao {
     @Query("SELECT * FROM tourism")
-    fun getAllTourism(): Flowable<List<TourismEntity>>
+    fun getAllTourism(): Flow<List<TourismEntity>>
 
     @Query("SELECT * FROM tourism where isFavorite = 1")
-    fun getFavoriteTourism(): Flowable<List<TourismEntity>>
+    fun getFavoriteTourism(): Flow<List<TourismEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    // Menambahkan fitur Completable karena insert hanya dilakukan sekali tanpa return
-    fun insertTourism(tourism: List<TourismEntity>): Completable
+    fun insertTourism(tourism: List<TourismEntity>)
 
     @Update
     fun updateFavoriteTourism(tourism: TourismEntity)
