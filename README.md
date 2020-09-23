@@ -1,4 +1,4 @@
-# Dicoding-TourismApp
+# TourismApp
 Dicoding example project using clean architecture programming principle
 
 1. Clean Architecture\
