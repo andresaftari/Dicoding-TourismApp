@@ -8,19 +8,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
+import javax.inject.Singleton
 
 // Mengubah constructor yang sebelumnya JSONHelper menjadi ApiService
-class RemoteDataSource private constructor(private val apiService: ApiService) {
+@Singleton
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
     companion object {
         const val TAG = "RemoteDataSource"
-
-        @Volatile
-        private var instance: RemoteDataSource? = null
-
-        fun getInstance(apiService: ApiService): RemoteDataSource =
-            instance ?: synchronized(this) {
-                instance ?: RemoteDataSource(apiService)
-            }
     }
 
     // Menggunakan Flow interface seperti Flowable pada RXJava2

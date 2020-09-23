@@ -1,33 +1,17 @@
 package com.dicoding.tourismapp.core.ui
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.tourismapp.core.data.TourismRepository
-import com.dicoding.tourismapp.core.di.Injection
 import com.dicoding.tourismapp.core.domain.usecase.ITourismUseCase
-import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
 import com.dicoding.tourismapp.detail.DetailTourismViewModel
+import com.dicoding.tourismapp.di.AppScope
 import com.dicoding.tourismapp.favorite.FavoriteViewModel
 import com.dicoding.tourismapp.home.HomeViewModel
+import javax.inject.Inject
 
-// Mengubah data yang di-return menjadi TourismInteractor
-class ViewModelFactory private constructor(private val iTourismUseCase: ITourismUseCase) :
+@AppScope
+class ViewModelFactory @Inject constructor(private val iTourismUseCase: ITourismUseCase) :
     ViewModelProvider.NewInstanceFactory() {
-
-    companion object {
-        @Volatile
-        private var instance: ViewModelFactory? = null
-
-        fun getInstance(context: Context): ViewModelFactory =
-            instance
-                ?: synchronized(this) {
-                    instance
-                        ?: ViewModelFactory(Injection.provideTourismUseCase(context))
-                }
-    }
-
-    // Mengubah data yang di-return menjadi TourismInteractor
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         when {

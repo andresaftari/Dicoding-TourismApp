@@ -2,8 +2,9 @@ package com.dicoding.tourismapp.core.domain.usecase
 
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
+import javax.inject.Inject
 
-class TourismInteractor(private val tourismRepository: ITourismRepository) : ITourismUseCase {
+class TourismInteractor@Inject constructor(private val tourismRepository: ITourismRepository) : ITourismUseCase {
     override fun getAllTourism() = tourismRepository.getAllTourism()
 
     override fun getFavoriteTourism() = tourismRepository.getFavoriteTourism()
