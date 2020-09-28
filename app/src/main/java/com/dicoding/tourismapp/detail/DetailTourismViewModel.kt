@@ -1,8 +1,8 @@
 package com.dicoding.tourismapp.detail
 
 import androidx.lifecycle.ViewModel
-import com.dicoding.tourismapp.core.domain.model.Tourism
-import com.dicoding.tourismapp.core.domain.usecase.ITourismUseCase
+import com.dicoding.core.domain.model.Tourism
+import com.dicoding.core.domain.usecase.ITourismUseCase
 
 // Mengubah constructor DetailTourismViewModel dari TourismRepository menjadi ITourismUseCase
 class DetailTourismViewModel(private val iTourismUseCase: ITourismUseCase) : ViewModel() {

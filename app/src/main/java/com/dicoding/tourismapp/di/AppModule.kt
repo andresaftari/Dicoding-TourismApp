@@ -1,7 +1,7 @@
 package com.dicoding.tourismapp.di
 
-import com.dicoding.tourismapp.core.domain.usecase.ITourismUseCase
-import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
+import com.dicoding.core.domain.usecase.ITourismUseCase
+import com.dicoding.core.domain.usecase.TourismInteractor
 import com.dicoding.tourismapp.detail.DetailTourismViewModel
 import com.dicoding.tourismapp.favorite.FavoriteViewModel
 import com.dicoding.tourismapp.home.HomeViewModel
