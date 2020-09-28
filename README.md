@@ -11,4 +11,5 @@ Dicoding example project using clean architecture programming principle
 └─2.3. retrofit-coroutine
 3. Dependency Injection\
 ├─3.0. dependency-dagger\
-└─3.1. dagger-multibindings
+└─3.1. dagger-multibindings\
+└─3.2. dagger-hilt\
