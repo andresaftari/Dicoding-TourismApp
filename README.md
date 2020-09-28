@@ -14,4 +14,5 @@ Dicoding example project using clean architecture programming principle
 └─3.1. dagger-multibindings\
 └─3.2. dagger-hilt\
 └─3.3. dependency-koin
-4. Modularization
+4. Modularization\
+└─4.0. modularization
