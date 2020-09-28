@@ -10,4 +10,5 @@ Dicoding example project using clean architecture programming principle
 └─2.2. retrofit-rxJava2\
 └─2.3. retrofit-coroutine
 3. Dependency Injection\
-└─3.0. dependency-dagger
+├─3.0. dependency-dagger\
+└─3.1. dagger-multibindings
