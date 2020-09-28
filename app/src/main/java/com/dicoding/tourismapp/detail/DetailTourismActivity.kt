@@ -5,28 +5,22 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
-import com.dicoding.tourismapp.core.ui.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
-import javax.inject.Inject
 
+// Menambahkan annotation @AndroidEntryPoint dan mengganti beberapa kode yang berkaitan dengan Dagger
+@AndroidEntryPoint
 class DetailTourismActivity : AppCompatActivity() {
-    @Inject
-    lateinit var factory: ViewModelFactory
-
-    private val detailTourismViewModel: DetailTourismViewModel by viewModels { factory }
+    private val detailTourismViewModel: DetailTourismViewModel by viewModels()
 
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
 
-    // Mengubah tipe data DetailTourismActivity dari TourismEntity menjadi Tourism
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
