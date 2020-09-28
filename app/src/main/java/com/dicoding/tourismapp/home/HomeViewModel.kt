@@ -3,8 +3,9 @@ package com.dicoding.tourismapp.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.dicoding.tourismapp.core.domain.usecase.ITourismUseCase
+import javax.inject.Inject
 
-// Mengubah constructor HomeViewModel dari TourismRepository menjadi ITourismUseCase
-class HomeViewModel(iTourismUseCase: ITourismUseCase) : ViewModel() {
+// Tambahkan injection
+class HomeViewModel @Inject constructor(iTourismUseCase: ITourismUseCase) : ViewModel() {
     val tourism = iTourismUseCase.getAllTourism().asLiveData()
 }
