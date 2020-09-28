@@ -6,18 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
-import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.fragment_home.rv_tourism
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : Fragment() {
-    private lateinit var favoriteViewModel: FavoriteViewModel
+    private val favoriteViewModel: FavoriteViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +34,6 @@ class FavoriteFragment : Fragment() {
                 intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
-
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            favoriteViewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
 
             favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner, { dataTourism ->
                 tourismAdapter.setData(dataTourism)

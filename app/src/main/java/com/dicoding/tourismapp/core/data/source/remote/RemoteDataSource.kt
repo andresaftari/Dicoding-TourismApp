@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 // Mengubah constructor yang sebelumnya JSONHelper menjadi ApiService
-class RemoteDataSource private constructor(private val apiService: ApiService) {
+class RemoteDataSource(private val apiService: ApiService) {
     companion object {
         const val TAG = "RemoteDataSource"
 
