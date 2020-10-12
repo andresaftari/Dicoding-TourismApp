@@ -14,7 +14,7 @@ abstract class TourismDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: TourismDatabase? = null
 
-        fun getInstance(context: Context): TourismDatabase =
+        fun getInstance(context: Context) =
             INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
